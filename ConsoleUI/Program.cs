@@ -10,6 +10,21 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //InMemoryTest();
+
+            ICarService carManager = new CarManager(new EfCarDal());
+            IBrandService brandManager = new BrandManager(new EfBrandDal());
+            IColorService colorManager = new ColorManager(new EfColorDal());
+
+            var result = carManager.GetCarsByColorId(1);
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.Description);
+            }
+        }
+
+        private static void InMemoryTest()
+        {
             ICarService carManager = new CarManager(new InMemoryCarDal());
 
             //ADD & DELETE
