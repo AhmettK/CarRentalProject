@@ -16,10 +16,9 @@ namespace ConsoleUI
             IBrandService brandManager = new BrandManager(new EfBrandDal());
             IColorService colorManager = new ColorManager(new EfColorDal());
 
-            var result = carManager.GetCarsByColorId(1);
-            foreach (var item in result)
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(item.Description);
+                Console.WriteLine("Araba Markası: "+car.BrandName+"-- Araba Modeli: "+car.CarName+"-- Araba Rengi: "+car.ColorName+"\n");
             }
         }
 
