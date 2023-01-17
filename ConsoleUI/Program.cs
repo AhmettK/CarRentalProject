@@ -12,13 +12,39 @@ namespace ConsoleUI
         {
             //InMemoryTest();
 
+            //CarBrandColorTest();
+
+            //CustomerTest();
+
+            //RentalAddTest();
+        }
+
+        private static void RentalAddTest()
+        {
+            Rental rental1 = new Rental() { CarId = 2, CustomerId = 2, RentDate = DateTime.Now.AddDays(1), ReturnDate = DateTime.Now.AddDays(3) };
+            IRentalService rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(rental1);
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CustomerTest()
+        {
+            Customer customer1 = new Customer() { FirstName = "Tuğçe", LastName = "Tuncay", Email = "tugce@gmail.com", Password = "12345", CompanyName = "Tuğçe Ticaret" };
+            ICustomerService customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(customer1);
+        }
+
+        private static void CarBrandColorTest()
+        {
             ICarService carManager = new CarManager(new EfCarDal());
             IBrandService brandManager = new BrandManager(new EfBrandDal());
             IColorService colorManager = new ColorManager(new EfColorDal());
 
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+            Console.WriteLine(result.Message);
+            foreach (var car in result.Data)
             {
-                Console.WriteLine("Araba Markası: "+car.BrandName+"-- Araba Modeli: "+car.CarName+"-- Araba Rengi: "+car.ColorName+"\n");
+                Console.WriteLine("Araba Markası: " + car.BrandName + "-- Araba Modeli: " + car.CarName + "-- Araba Rengi: " + car.ColorName + "\n");
             }
         }
 
@@ -36,14 +62,14 @@ namespace ConsoleUI
             carManager.Update(car2);
 
             //getAll() operasyonu
-            var cars = carManager.GetAll();
+            var cars = carManager.GetAll().Data;
             foreach (var item in cars)
             {
                 Console.WriteLine(item.Description);
             }
 
             //getById() operasyonu
-            var car3 = carManager.GetById(5);
+            var car3 = carManager.GetById(5).Data;
             Console.WriteLine("\ngetById: " + car3.Description);
         }
     }

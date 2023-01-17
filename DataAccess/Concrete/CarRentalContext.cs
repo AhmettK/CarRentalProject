@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class CarRentalContext:DbContext
+    public class CarRentalContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -15,5 +15,7 @@ namespace DataAccess.Concrete
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
     }
 }
